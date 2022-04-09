@@ -52,4 +52,9 @@ button {
   justify-content: flex-end;
   align-items: flex-end;
   padding-right: 5px;
+  flex-direction: column;
+}
+
+#displayAll {
+  font-size: 20px;
 }

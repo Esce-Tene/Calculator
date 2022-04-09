@@ -2,6 +2,8 @@ const buttons = document.querySelectorAll(`button`);
 const operateButton = document.getElementById(`operate`);
 const clear = document.getElementById(`clear-button`);
 const screen = document.getElementById(`screen`);
+const display = document.querySelector(`#display`);
+const displayAll = document.querySelector(`#displayAll`);
 let currentNumber = 0;
 let num1 = 0;
 let num2 = 0;
@@ -48,28 +50,39 @@ function operate() {
 
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
-    if (button.classList.contains('number')) {
-      screen.textContent += button.value.toString();
-      currentNumber = parseInt(screen.textContent);
-    }  
+    if (button.classList.contains('number') && operator === '') {
+      display.textContent += button.value.toString();
+      currentNumber = parseInt(display.textContent);
+      displayAll.textContent += button.value;
+    } 
+    else if (button.classList.contains('number') && operator !== ''){
+      display.textContent += button.value.toString();
+      displayAll.textContent += button.value;
+    } 
     else if (button.classList.contains(`big-button`)) {
-      screen.textContent = button.value;
+      display.textContent = button.value;
+      displayAll.textContent = button.value;
       currentNumber = 0;
       num1 = 0;
       num2 = 0;
       operator = '';
     }
-    else if (button.classList.contains(`operator`)) {
+    else if (button.classList.contains(`operator`) && currentNumber > 0) {
       num1 = currentNumber;
-      screen.textContent = operator;
-      operator = button.value;
-      
+      display.textContent = button.value;
+      operator = button.value
+      displayAll.textContent += button.value;
     }
     else if (button.classList.contains(`equals`)) {
-      currentNumber = parseInt(screen.textContent);
-      num2 = currentNumber;
+      currentNumber = display.textContent.substring(1);
+      num2 = parseInt(currentNumber);
       operate();
-      screen.textContent = operation;
+      display.textContent = operation;
+      currentNumber = operation;
+    }
+    else if (button.classList.contains(`decimal`)) {
+      display.textContent += `.`;
+      currentNumber = parseInt(screen.textContent);
     }
   })
 })
