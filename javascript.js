@@ -52,7 +52,7 @@ buttons.forEach((button) => {
   button.addEventListener('click', () => {
     if (button.classList.contains('number') && operator === '') {
       display.textContent += button.value.toString();
-      currentNumber = parseInt(display.textContent);
+      currentNumber = parseFloat(display.textContent);
       displayAll.textContent += button.value;
     } 
     else if (button.classList.contains('number') && operator !== ''){
@@ -75,14 +75,15 @@ buttons.forEach((button) => {
     }
     else if (button.classList.contains(`equals`)) {
       currentNumber = display.textContent.substring(1);
-      num2 = parseInt(currentNumber);
+      num2 = parseFloat(currentNumber);
       operate();
       display.textContent = operation;
       currentNumber = operation;
     }
     else if (button.classList.contains(`decimal`)) {
       display.textContent += `.`;
-      currentNumber = parseInt(screen.textContent);
+      currentNumber = parseFloat(display.textContent);
+      displayAll.textContent += button.value;
     }
   })
 })
