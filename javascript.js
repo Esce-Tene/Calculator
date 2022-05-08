@@ -45,7 +45,7 @@ function operate() {
       break;  
       
   };
-  return operation
+  return operation;
 }
 
 buttons.forEach((button) => {
@@ -67,24 +67,38 @@ buttons.forEach((button) => {
       num2 = 0;
       operator = '';
     }
-    else if (button.classList.contains(`operator`) && currentNumber > 0) {
+    else if (button.classList.contains(`operator`) && operator !== ``) {
+      num2 = parseFloat(display.textContent.substring(1));
+      operate();
+      currentNumber = operation;
+      num1 = currentNumber;
+      num2 = 0;
+      display.textContent = button.value;
+      operator = button.value;
+      displayAll.textContent += button.value;
+    }
+    else if (button.classList.contains('operator')) {
       num1 = currentNumber;
       display.textContent = button.value;
-      operator = button.value
-      displayAll.textContent += button.value;
+      operator = button.value;
+      displayAll.textContent += button.value; 
     }
     else if (button.classList.contains(`equals`)) {
       currentNumber = display.textContent.substring(1);
       num2 = parseFloat(currentNumber);
       operate();
-      display.textContent = operation;
-      currentNumber = operation;
+      display.textContent = Math.round(operation * 1000) / 1000;
+      currentNumber = Math.round(operation * 1000) / 1000;
+    }
+    else if (button.classList.contains('decimal') && display.textContent.includes(`.`)){
+
     }
     else if (button.classList.contains(`decimal`)) {
       display.textContent += `.`;
       currentNumber = parseFloat(display.textContent);
       displayAll.textContent += button.value;
     }
+    
   })
 })
 
